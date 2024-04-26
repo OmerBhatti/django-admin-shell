@@ -21,6 +21,11 @@ a.btn {
     color: #fff;
 }
 
+#code_container:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}
+
 #output_container {
     width : 100%;
     height: 200px;

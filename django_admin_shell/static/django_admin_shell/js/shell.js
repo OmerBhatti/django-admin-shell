@@ -59,6 +59,10 @@ $(document).ready(function(){
 
     set_height();
 
+    $('#saved_snippet').on('change', function(e){
+        $shell.val(e.target.value);
+    });
+
     // ----------
     // Keys:
     // Ctrl + Enter = execute code

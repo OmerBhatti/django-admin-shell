@@ -8,6 +8,8 @@ from django.http import (
 )
 from django.conf import settings
 
+from django_admin_shell.models import SavedSnippets
+
 try:
     # Only for python 2
     from StringIO import StringIO
@@ -250,4 +252,5 @@ class ShellView(FormView):
         ctx['python_version'] = get_py_version()
         ctx['django_version'] = get_dj_version()
         ctx['auto_import'] = str(self.runner.importer)
+        ctx['saved_snippets'] = SavedSnippets.objects.all()
         return ctx

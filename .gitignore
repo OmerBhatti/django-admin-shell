@@ -21,3 +21,4 @@ eggs/
 .cache
 .env
 pip-log.txt
+demo/db.sqlite3
