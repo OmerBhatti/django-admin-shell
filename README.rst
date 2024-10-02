@@ -99,6 +99,8 @@ Usage
 * shell is available on url: **/admin/shell**
 * On default settings user must be authenticated to django admin site and
   User must have superuser permission and DEBUG mode must be set on True.
+* Double click any code snippet in output section to save it.
+* Saved snippets will appear in a drop down above code editor
 
 .. note::
 

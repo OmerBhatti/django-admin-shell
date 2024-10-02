@@ -5,10 +5,12 @@ from django.test.utils import override_settings
 from django.test import (
     TestCase,
     Client,
+    RequestFactory
 )
 
 from django_admin_shell.settings import ADMIN_SHELL_SESSION_KEY
 from django_admin_shell.urls import ShellView
+from django_admin_shell.models import SavedSnippet
 import mock
 
 if django.VERSION < (1, 10):
@@ -36,6 +38,13 @@ class ShellViewTest(TestCase):
         self.client_auth = Client()
         self.client_auth.login(username=username, password=password)
 
+        snippets = [
+            SavedSnippet(name="Snippet 1", code="print('Hello World')"),
+            SavedSnippet(name="Snippet 2", code="print('Test Snippet')")
+        ]
+        self.snippets = SavedSnippet.objects.bulk_create(snippets)
+        self.factory = RequestFactory()
+
         self.view = ShellView()
 
     def test_shell_unauth(self):
@@ -48,6 +57,23 @@ class ShellViewTest(TestCase):
         """If user not is stuff then don"t have access to shell view"""
         response = self.client_auth.get(self.url)
         assert response.status_code == 302
+
+    def test_saved_snippets(self):
+        """Check if saved snippets in response."""
+        request = self.factory.get(self.url)
+        request.session = self.client.session
+
+        view = ShellView()
+        view.request = request
+
+        context = view.get_context_data()
+        self.assertIn('saved_snippets', context)
+
+        saved_snippets = context['saved_snippets']
+        self.assertEqual(saved_snippets.count(), 2)
+        for index, snippet in enumerate(saved_snippets):
+            self.assertEqual(snippet.name, self.snippets[index].name)
+            self.assertEqual(snippet.code, self.snippets[index].code)
 
     def test_shell_enable(self):
         """

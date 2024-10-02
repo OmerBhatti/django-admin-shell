@@ -8,7 +8,7 @@ from django.http import (
 )
 from django.conf import settings
 
-from django_admin_shell.models import SavedSnippets
+from django_admin_shell.models import SavedSnippet
 
 try:
     # Only for python 2
@@ -252,5 +252,5 @@ class ShellView(FormView):
         ctx['python_version'] = get_py_version()
         ctx['django_version'] = get_dj_version()
         ctx['auto_import'] = str(self.runner.importer)
-        ctx['saved_snippets'] = SavedSnippets.objects.all()
+        ctx['saved_snippets'] = SavedSnippet.objects.all()
         return ctx

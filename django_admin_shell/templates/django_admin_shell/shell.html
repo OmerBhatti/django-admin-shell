@@ -26,8 +26,15 @@
 
     <script>
         function save_snippet(code) {
+            var MAX_LENGTH = 2000;
+
+            if (code.length > MAX_LENGTH) {
+                alert("The code is too long. It will be truncated to 2000 characters.");
+                code = code.slice(0, MAX_LENGTH);
+            }
+
             var encoded = encodeURIComponent(code);
-            var url = document.location.origin + "/admin/admin_shell/savedsnippets/add/?code=" + encoded;
+            var url = document.location.origin + "{% url 'admin:admin_shell_savedsnippet_add' %}?code=" + encoded;
             window.open(url, '_blank');
         }
     </script>
@@ -45,6 +52,7 @@
                 <div
                     class="code"
                     id="code_container"
+                    title="Double click to save this snippet"
                     ondblclick="save_snippet('{{ result.code|escapejs }}')"
                 ><pre>{{ result.code }}</pre></div>
                 <div class="out"><pre class="{{ result.status }}">{{ result.out }}</pre></div>
@@ -83,7 +91,6 @@
                         {{ form.code.errors }}
                     {% endif %}
                 </div>
-                
                 <button id="run_code" type="submit" class="btn btn-success btn-block">
                     <span class="glyphicon glyphicon-play-circle"></span>
                     Run code (ctrl + enter)
@@ -103,7 +110,7 @@
             <span class="glyphicon glyphicon-info-sign"></span> Ctrl + Enter : Run code<br/>
             <span class="glyphicon glyphicon-info-sign"></span> Ctrl + Up/Down : Load code from history<br/>
             <span class="glyphicon glyphicon-info-sign"></span> Tab : Indent = 4 spaces<br/>
-            <span class="glyphicon glyphicon-info-sign"></span> Double click : Save code snippet
+            <span class="glyphicon glyphicon-info-sign"></span> Double click any code in output : Save code snippet
         </div>
     </div>
 

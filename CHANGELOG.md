@@ -1,5 +1,11 @@
 # CHANGELOG for django-admin-shell
 
+## 2.1.0 (2024-10-02)
+
+    * Added a modal to save code snippets
+    * Added a dropdown to select saved snippets
+    * Double click any code snippet to save it to db
+
 ## 2.0.1 (2023-11-20)
 
     * Add missing `bootstrap.min.css.map` file - refer to issue #8

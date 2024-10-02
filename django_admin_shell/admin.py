@@ -2,13 +2,13 @@
 
 from django.contrib import admin
 
-from .models import SavedSnippets
+from .models import SavedSnippet
 
 
-class SavedSnippetsAdmin(admin.ModelAdmin):
-    """Admin for SavedSnippets."""
+class SavedSnippetAdmin(admin.ModelAdmin):
+    """Admin for SavedSnippet."""
 
-    list_display = ('name', 'code')
+    list_display = ('id', 'name', 'created_at', 'code')
     search_fields = ('name', 'code')
 
-admin.site.register(SavedSnippets, SavedSnippetsAdmin)
+admin.site.register(SavedSnippet, SavedSnippetAdmin)

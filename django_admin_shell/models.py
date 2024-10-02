@@ -3,17 +3,15 @@
 from django.db import models
 
 
-class SavedSnippets(models.Model):
+class SavedSnippet(models.Model):
     """Models to contain saved snipets."""
 
     name = models.CharField(max_length=32)
     code = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    objects = models.Manager()
-
     class Meta:
-        """Meta class for SavedSnippets."""
+        """Meta class for SavedSnippet."""
 
         verbose_name = "Saved Snippet"
         verbose_name_plural = "Saved Snippets"
