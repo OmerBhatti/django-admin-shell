@@ -11,4 +11,5 @@ class SavedSnippetAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'created_at', 'code')
     search_fields = ('name', 'code')
 
+
 admin.site.register(SavedSnippet, SavedSnippetAdmin)
