@@ -38,11 +38,10 @@ class ShellViewTest(TestCase):
         self.client_auth = Client()
         self.client_auth.login(username=username, password=password)
 
-        snippets = [
+        self.snippets = SavedSnippet.objects.bulk_create([
             SavedSnippet(name="Snippet 1", code="print('Hello World')"),
             SavedSnippet(name="Snippet 2", code="print('Test Snippet')")
-        ]
-        self.snippets = SavedSnippet.objects.bulk_create(snippets)
+        ])
         self.factory = RequestFactory()
 
         self.view = ShellView()
