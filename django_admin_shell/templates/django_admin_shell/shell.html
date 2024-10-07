@@ -34,7 +34,7 @@
             }
 
             var encoded = encodeURIComponent(code);
-            var url = document.location.origin + "{% url 'admin:admin_shell_savedsnippet_add' %}?code=" + encoded;
+            var url = document.location.origin + "{{ add_snippet_url }}" + encoded;
             window.open(url, '_blank');
         }
     </script>

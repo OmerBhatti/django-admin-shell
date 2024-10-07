@@ -1,6 +1,7 @@
 # encoding: utf-8
 from django.apps import apps
 from django.views.generic import FormView
+from django.urls import reverse
 from .forms import ShellForm
 from django.http import (
     HttpResponseForbidden,
@@ -246,6 +247,15 @@ class ShellView(FormView):
     def get_context_data(self, **kwargs):
         """Add output to context"""
         ctx = super(ShellView, self).get_context_data(**kwargs)
+
+        if django.VERSION >= (3, 2):
+            add_snippet_url = reverse('admin:admin_shell_savedsnippet_add')
+        else:
+            add_snippet_url = reverse('admin:django_admin_shell_savedsnippet_add')
+
+        add_snippet_url += "?code="
+
+        ctx['add_snippet_url'] = add_snippet_url
         ctx['site_header'] = "Django admin shell"
         ctx['has_permission'] = True
         ctx['output'] = self.get_output()
